@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, TextInput, View, StyleSheet} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 
-// import * as firebase from 'firebase';
+import firebase from 'firebase';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // Optionally import the services that you want to use
@@ -12,19 +12,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 //import "firebase/functions";
 //import "firebase/storage";
 
-// var firebaseConfig = {
-//     apiKey: "AIzaSyAn75xxB4H_wWW0j7tefWn4w0UQjDufqlw",
-//     authDomain: "todo-list-7b1df.firebaseapp.com",
-//     databaseURL: "https://todo-list-7b1df.firebaseio.com",
-//     projectId: "todo-list-7b1df",
-//     storageBucket: "todo-list-7b1df.appspot.com",
-//     messagingSenderId: "497898922057",
-//     appId: "1:497898922057:web:5cc6e63cb71a5ec7d1df98",
-//     measurementId: "G-HNV1LRG075"
-//   };
+var firebaseConfig = {
+    apiKey: "AIzaSyAn75xxB4H_wWW0j7tefWn4w0UQjDufqlw",
+    authDomain: "todo-list-7b1df.firebaseapp.com",
+    databaseURL: "https://todo-list-7b1df.firebaseio.com",
+    projectId: "todo-list-7b1df",
+    storageBucket: "todo-list-7b1df.appspot.com",
+    messagingSenderId: "497898922057",
+    appId: "1:497898922057:web:5cc6e63cb71a5ec7d1df98",
+    measurementId: "G-HNV1LRG075"
+  };
 
 
-// firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const Auth = ({navigation}) => {
 
@@ -37,12 +37,14 @@ const Auth = ({navigation}) => {
     };
 
     function RegisterUser(){
-        try {
-            console.log(email, password);
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-        } catch (error) {
-            
-        }
+        console.log("registering..")
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            console.log(error);
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+          });
     };
 
     return(

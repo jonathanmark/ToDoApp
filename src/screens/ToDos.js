@@ -5,16 +5,27 @@ import { AntDesign } from '@expo/vector-icons';
 const ToDos = () => {
 
     const [incompleteTask, setIncompleteTask] = useState("");
-    const [incTaskArr, setincTaskArr] = useState(["Example Task 1", "Example Task 2"]);
-    const [compTaskArr, setCompTaskArr] = useState([]);
+    const [incTaskArr, setincTaskArr] = useState(["Example Task 3", "Example Task 4"]);
+    const [compTaskArr, setCompTaskArr] = useState(["Example Task 1", "Example Task 2"]);
+
+    //To do later:
+    //Change tasks to object with id, datecreated, task and bool completed
 
     const AddNewTask = (newTask) => {
-
+        //add new task to incTaskArr array
     }
 
     const CompleteTask = () => {
-
+        //get task and remove from incomplete to complete
     }
+
+    async function setter(){
+        //fetch user data here and set to proper variables
+    };
+
+    useEffect(() => {
+        setter();
+    }, []);  
 
     return (
         <View style={styles.container}>
@@ -27,19 +38,33 @@ const ToDos = () => {
                     keyExtractor={(item) => item.id}
                     renderItem={({item}) => (
                         <View style = {styles.taskItem}>
+                            <AntDesign style={styles.iconStyle} name="delete" size={24} color="black"/>
+                            <AntDesign style={styles.iconStyle} name="check" size={24} color="black"/>
                             <Text>{item}</Text>
                         </View>
                     )}
                 />
             </View>
             <View style={styles.createNewTaskButton}>
-                <TextInput
+                <TextInput 
+                    style = {style = styles.newTask}
                     placeholder="Add new task"
                 />
                 <AntDesign style={styles.iconStyle} name="addfile" size={24} color="black"/>
             </View>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Completed Tasks</Text>
+                <View>
+                    <FlatList
+                        data={compTaskArr}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({item}) => (
+                            <View style = {styles.taskItem}>
+                                <Text>{item}</Text>
+                            </View>
+                        )}
+                    />
+            </View>
             </View>
         </View>
     )
@@ -59,8 +84,8 @@ const styles = StyleSheet.create({
         
     },
 
-    tasks:{
-
+    newtask:{
+        flex:9
     },
 
     createNewTaskButton:{
@@ -82,7 +107,8 @@ const styles = StyleSheet.create({
 
     taskItem:{
         marginHorizontal:10,
-        marginVertical:3
+        marginVertical:3,
+        flexDirection: 'row',
     }
 
 })
